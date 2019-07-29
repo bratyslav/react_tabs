@@ -4,8 +4,8 @@ const classNames = require('classnames');
 
 const TabButton = ({ tab, onTabSelected, currentTab }) => {
   const tabButtonClass = classNames({
-    'tab-button is-active': tab.title === currentTab,
-    'tab-button': tab.title !== currentTab
+    'tab-button': true,
+    'is-active': tab.title === currentTab,
   });
 
   return (
