@@ -1,51 +1,44 @@
 import React from 'react';
-import TabButton from './TabButton';
 import PropTypes from 'prop-types';
+import { tabs } from './api/tabs';
 
-class Tabs extends React.Component {
-  constructor(props) {
-    super(props);
-    const { tabs, defaultIndex } = this.props;
+const Tabs = ({ children, tabNumber, selectTab }) => {
+  return (
+    <div>
+      <h1>{children.length} tabs</h1>
 
-    this.state = {
-      currentTab: tabs[defaultIndex].title
-    };
-  };
-
-  onTabSelected = (title) => {
-    this.setState({ currentTab: title });
-  };
-
-  render() {
-    const { tabs } = this.props;
-    const { currentTab } = this.state;
-
-    return (
       <div>
-        <h1>{tabs.length} tabs</h1>
-
-        <section>
-          {tabs.map(tab => (
-            <TabButton
-              tab={tab}
-              onTabSelected={this.onTabSelected}
-              currentTab={currentTab}
-              key={tab.title}
-            />
-          ))}
-        </section>
-  
-        <section className="content" align="justify">
-          {tabs.find(tab => tab.title === currentTab).content}
-        </section>
+        {
+          children.map((child, index) => (
+            <span
+              className={`tab-button ${tabNumber === index ? 'is-active' : ''}`}
+              onClick={() => selectTab(index)}
+              key={index}
+            >
+              {child.props.title}
+            </span>
+          ))
+        }
       </div>
-    );
-  };
+
+      <div className="content" align="justify">
+        {children[tabNumber]}
+      </div>
+    </div>
+  );
 };
 
-Tabs.propTypes = {
-  tabs: PropTypes.array.isRequired,
-  defaultIndex: PropTypes.number.isRequired
+Tabs.Tab = ({ children }) => {
+  return (
+    <div>
+      {children}
+    </div>
+  );
+};
+
+tabs.propTypes = {
+  tabNumber: PropTypes.number.isRequired,
+  selectTab: PropTypes.func.isRequired
 };
 
 export default Tabs;
