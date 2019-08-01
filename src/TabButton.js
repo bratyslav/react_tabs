@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 const classNames = require('classnames');
 
-const TabButton = ({ tab, onTabSelected, currentTab }) => {
+const TabButton = ({ tab, currentTab }) => {
   const tabButtonClass = classNames({
     'tab-button': true,
-    'is-active': tab.title === currentTab,
+    'tab-button__is-active': tab.title === currentTab
   });
 
   return (
-    <span
-      onClick={() => onTabSelected(tab.title)}
-      className={tabButtonClass}
-    >
-      {tab.title}
-    </span>
+    <NavLink to={`/tabs/${tab.title}`}>
+      <span className={tabButtonClass} >
+        {tab.title}
+      </span>
+    </NavLink>
   );
 };
 

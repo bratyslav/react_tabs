@@ -4,7 +4,7 @@ body {
   margin: 50px 10vw;
 }
 
-.is-active {
+.tab-button__is-active {
   color: rgb(74, 57, 168);
   border-style: solid;
   border-color: rgb(220, 220, 220);
@@ -15,7 +15,6 @@ body {
   border-top-right-radius: 5px;
   z-index: 2;
   position: relative;
-  
 }
 
 .tab-button {
@@ -27,4 +26,14 @@ body {
   border-style: solid;
   border-color: rgb(220, 220, 220);
   border-width: 1px 0px 0px 0px;
+}
+
+.nav-link {
+  margin: 10px;
+  border: 1px solid black;
+  color: black;
+}
+
+.nav-link__is-active {
+  color: blue;
 }

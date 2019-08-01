@@ -1,23 +1,21 @@
 import React from 'react';
 import TabButton from './TabButton';
 import PropTypes from 'prop-types';
+import { tabs } from './api/tabs';
 
 class Tabs extends React.Component {
   constructor(props) {
     super(props);
-    const { tabs, defaultIndex } = this.props;
+    const { match } = this.props;
+    const tab = tabs.find(tab => tab.title === match.params.tabTitle);
 
     this.state = {
-      currentTab: tabs[defaultIndex].title
+      currentTab: tab ? tab.title : ''
     };
   };
 
-  onTabSelected = (title) => {
-    this.setState({ currentTab: title });
-  };
-
   render() {
-    const { tabs } = this.props;
+    const { match } = this.props;
     const { currentTab } = this.state;
 
     return (
@@ -28,7 +26,6 @@ class Tabs extends React.Component {
           {tabs.map(tab => (
             <TabButton
               tab={tab}
-              onTabSelected={this.onTabSelected}
               currentTab={currentTab}
               key={tab.title}
             />
@@ -36,7 +33,11 @@ class Tabs extends React.Component {
         </section>
   
         <section className="content" align="justify">
-          {tabs.find(tab => tab.title === currentTab).content}
+          {
+            match.params.tabTitle
+              ? tabs.find(tab => tab.title === match.params.tabTitle).content
+              : ''
+          }
         </section>
       </div>
     );
