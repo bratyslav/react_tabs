@@ -4,6 +4,10 @@ body {
   margin: 50px 10vw;
 }
 
+a {
+  color: black;
+}
+
 .tab-button__is-active {
   color: rgb(74, 57, 168);
   border-style: solid;
@@ -31,7 +35,6 @@ body {
 .nav-link {
   margin: 10px;
   border: 1px solid black;
-  color: black;
 }
 
 .nav-link__is-active {

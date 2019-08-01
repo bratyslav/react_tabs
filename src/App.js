@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, NavLink } from 'react-router-dom';
+import { HashRouter, Route, NavLink } from 'react-router-dom';
 import Tabs from './Tabs';
 import Home from './Home';
 
 const App = () => (
-  <BrowserRouter>
+  <HashRouter>
     <nav>
       <NavLink
         to="/"
@@ -27,10 +27,10 @@ const App = () => (
 
     <Route path="/" exact component={Home} />
 
-    <Route path="/tabs/:tabTitle?" render={(props) => (
-      <Tabs defaultIndex={0} {...props}/>
+    <Route path="/tabs/:tabId?" render={(props) => (
+      <Tabs {...props}/>
     )} />
-  </BrowserRouter>
+  </HashRouter>
 );
 
 export default App;

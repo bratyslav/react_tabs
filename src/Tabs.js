@@ -3,50 +3,34 @@ import TabButton from './TabButton';
 import PropTypes from 'prop-types';
 import { tabs } from './api/tabs';
 
-class Tabs extends React.Component {
-  constructor(props) {
-    super(props);
-    const { match } = this.props;
-    const tab = tabs.find(tab => tab.title === match.params.tabTitle);
+const Tabs = ({ match }) => {
+  const tab = tabs.find(tab => tab.id == match.params.tabId);
+  // '==' потому что число сравнивается с строкой
+  const currentTab = tab || '';
 
-    this.state = {
-      currentTab: tab ? tab.title : ''
-    };
-  };
+  return (
+    <div>
+      <h1>{tabs.length} tabs</h1>
 
-  render() {
-    const { match } = this.props;
-    const { currentTab } = this.state;
+      <section>
+        {tabs.map(tab => (
+          <TabButton
+            tab={tab}
+            isCurrent={currentTab.id === tab.id}
+            key={tab.id}
+          />
+        ))}
+      </section>
 
-    return (
-      <div>
-        <h1>{tabs.length} tabs</h1>
-
-        <section>
-          {tabs.map(tab => (
-            <TabButton
-              tab={tab}
-              currentTab={currentTab}
-              key={tab.title}
-            />
-          ))}
-        </section>
-  
-        <section className="content" align="justify">
-          {
-            match.params.tabTitle
-              ? tabs.find(tab => tab.title === match.params.tabTitle).content
-              : ''
-          }
-        </section>
-      </div>
-    );
-  };
+      <section className="content" align="justify">
+        {currentTab.content}
+      </section>
+    </div>
+  );
 };
 
 Tabs.propTypes = {
-  tabs: PropTypes.array.isRequired,
-  defaultIndex: PropTypes.number.isRequired
+  match: PropTypes.object.isRequired
 };
 
 export default Tabs;
